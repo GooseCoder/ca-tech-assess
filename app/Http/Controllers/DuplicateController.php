@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreDuplicateRequest;
-use App\Http\Requests\UpdateDuplicateRequest;
 use App\Models\Duplicate;
+use Illuminate\Http\Request;
 
 class DuplicateController extends Controller
 {
@@ -14,5 +13,28 @@ class DuplicateController extends Controller
     public function index()
     {
         return Duplicate::paginate(10);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    public function show(Duplicate $duplicate)
+    {
+        //
+    }
+
+    public function update(Request $request, Duplicate $duplicate)
+    {
+        //
+    }
+
+    public function destroy(Duplicate $duplicate)
+    {
+        //
     }
 }
