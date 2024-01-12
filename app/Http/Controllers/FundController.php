@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFundRequest;
 use App\Http\Requests\UpdateFundRequest;
 use App\Models\Fund;
+use App\Events\DuplicateFundWarning;
+
 
 class FundController extends Controller
 {
@@ -32,6 +34,20 @@ class FundController extends Controller
         foreach ($data['companies'] as $company) {
             $fund->companies()->attach($company);
         }
+        // duplicate check
+        $duplicate = Fund::where('fund_manager_id', $fund->fund_manager_id)
+                     ->where('name', $fund->name)
+                     ->orWhere(function ($query) use ($data) {
+                         foreach ($data['aliases'] as $alias) {
+                             $query->orWhereJsonContains('aliases', $alias);
+                         }
+                     })
+                     ->exists();
+
+        if ($duplicate) {
+            event(new DuplicateFundWarning($fund));
+        }
+
         return $fund->load('companies');
     }
 
