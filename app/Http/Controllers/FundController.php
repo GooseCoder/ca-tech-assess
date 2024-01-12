@@ -6,19 +6,19 @@ use App\Http\Requests\StoreFundRequest;
 use App\Http\Requests\UpdateFundRequest;
 use App\Models\Fund;
 use App\Events\DuplicateFundWarning;
-
+use Illuminate\Http\Request;
 
 class FundController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $query = Fund::with('companies');
 
         if ($request->has('name')) {
-            $query->where('name', $request->input('name'));
+            $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
         }
         if ($request->has('start_year')) {
             $query->where('start_year', $request->input('start_year'));
