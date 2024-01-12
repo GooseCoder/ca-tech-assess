@@ -91,7 +91,7 @@ After that you need to start the queue process inside sails:
 
 The application uses the request-docs extension for API documentation. This tool provides a user-friendly interface to interact with the API endpoints. Here's how to use it:
 
-1. Navigate to http://localhost/request-docs in your web browser. You will see a list of all available API endpoints.
+1. Navigate to http://localhost/request-docs in your web browser after the application started. You will see a list of all available API endpoints.
 
 2. Click on an endpoint to expand it. You will see details about the endpoint, including its HTTP method (GET, POST, etc.), the URL path, and any required or optional parameters.
 
