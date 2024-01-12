@@ -15,7 +15,22 @@ class FundController extends Controller
      */
     public function index()
     {
-        return Fund::with('companies')->paginate(10);
+        $query = Fund::with('companies');
+
+        if ($request->has('name')) {
+            $query->where('name', $request->input('name'));
+        }
+        if ($request->has('start_year')) {
+            $query->where('start_year', $request->input('start_year'));
+        }
+        if ($request->has('fund_manager_id')) {
+            $query->where('fund_manager_id', $request->input('fund_manager_id'));
+        }
+        if ($request->has('alias')) {
+            $query->whereJsonContains('aliases', $request->input('alias'));
+        }
+
+        return $query->paginate(10);
     }
 
     /**
