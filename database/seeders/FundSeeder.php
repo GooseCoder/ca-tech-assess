@@ -14,6 +14,10 @@ class FundSeeder extends Seeder
     public function run(): void
     {
         Fund::factory()
+            ->has(
+                Company::factory()
+                    ->count(5)
+            )
             ->count(20)
             ->create();
     }

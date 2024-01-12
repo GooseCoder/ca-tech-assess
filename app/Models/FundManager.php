@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FundManager extends Model
 {
     use HasFactory;
+
+    public function funds()
+    {
+        return $this->hasMany(Fund::class);
+    }
 }
