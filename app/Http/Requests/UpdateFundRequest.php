@@ -11,7 +11,7 @@ class UpdateFundRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateFundRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'sometimes|nullable|string',
+            'start_year' => 'sometimes|nullable|integer',
+            'fund_manager_id' => 'sometimes|nullable|integer',
+            'companies' => 'sometimes|nullable|array',
+            'aliases' => 'sometimes|nullable|array'
         ];
     }
 }

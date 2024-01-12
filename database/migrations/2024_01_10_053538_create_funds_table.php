@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('start_year');
             $table->json('aliases')->nullable();
+            $table->unsignedBigInteger('fund_manager_id');
             $table->foreign('fund_manager_id')->references('id')->on('fund_managers');
             $table->timestamps();
         });

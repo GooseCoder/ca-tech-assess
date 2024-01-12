@@ -13,7 +13,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return Company::all();
+        return Company::paginate(10);
     }
 
     /**
@@ -21,7 +21,15 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        return Company::create($request->validated());
+        $data = $request->validated();
+        $company = new Company();
+        $company->name = $data['name'];
+        $company->save();
+        
+        foreach ($data['funds'] as $fund) {
+            $company->funds()->attach($fund);
+        }
+        return $company->load('funds');
     }
 
     /**
@@ -29,7 +37,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        return Company::find($company);
+        return Company::with('funds')->find($company->id);
     }
 
     /**
@@ -37,7 +45,17 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        return $company->update($request->validated());
+        $data = $request->validated();
+        $company->name = $data['name'] ?? $fund->name;
+        
+        if (isset($data['funds'])) {
+            $company->funds()->detach();
+            foreach ($data['funds'] as $fund) {    
+                $company->funds()->attach($fund);
+            }
+        }
+        $company->save();
+        return $company->load('companies');
     }
 
     /**

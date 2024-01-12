@@ -11,7 +11,7 @@ class StoreFundRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreFundRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string',
+            'start_year' => 'required|integer',
+            'fund_manager_id' => 'required|integer',
+            'companies' => 'required|array',
+            'aliases' => 'sometimes|nullable|array'
         ];
     }
 }

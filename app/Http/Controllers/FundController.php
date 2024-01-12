@@ -13,7 +13,7 @@ class FundController extends Controller
      */
     public function index()
     {
-        return Fund::all();
+        return Fund::with('companies')->paginate(10);
     }
 
     /**
@@ -21,7 +21,18 @@ class FundController extends Controller
      */
     public function store(StoreFundRequest $request)
     {
-        return Fund::create($request->validated());
+        $data = $request->validated();
+        $fund = new Fund();
+        $fund->name = $data['name'];
+        $fund->start_year = $data['start_year'];
+        $fund->fund_manager_id = $data['fund_manager_id'];
+        $fund->aliases = json_encode($data['aliases']);
+        $fund->save();
+        
+        foreach ($data['companies'] as $company) {
+            $fund->companies()->attach($company);
+        }
+        return $fund->load('companies');
     }
 
     /**
@@ -29,7 +40,7 @@ class FundController extends Controller
      */
     public function show(Fund $fund)
     {
-        return Fund::find($fund);
+        return Fund::with('companies')->find($fund->id);
     }
 
     /**
@@ -37,7 +48,20 @@ class FundController extends Controller
      */
     public function update(UpdateFundRequest $request, Fund $fund)
     {
-        return $fund->update($request->validated());
+        $data = $request->validated();
+        $fund->name = $data['name'] ?? $fund->name;
+        $fund->start_year = $data['start_year'] ?? $fund->start_year;
+        $fund->fund_manager_id = $data['fund_manager_id'] ?? $fund->fund_manager_id;
+        $fund->aliases = isset($data['aliases']) ? json_encode($data['aliases']) : $fund->aliases;
+        
+        if (isset($data['companies'])) {
+            $fund->companies()->detach();
+            foreach ($data['companies'] as $company) {    
+                $fund->companies()->attach($company);
+            }
+        }
+        $fund->save();
+        return $fund->load('companies');
     }
 
     /**

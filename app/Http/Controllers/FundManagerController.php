@@ -13,7 +13,7 @@ class FundManagerController extends Controller
      */
     public function index()
     {
-        return FundManager::all();
+        return FundManager::with('funds')->paginate(10);
     }
 
     /**
@@ -21,7 +21,11 @@ class FundManagerController extends Controller
      */
     public function store(StoreFundManagerRequest $request)
     {
-        return FundManager::create($request->validated());
+        $data = $request->validated();
+        $manager = new FundManager();
+        $manager->name = $data['name'];
+        $manager->save();
+        return $manager->load('funds');
     }
 
     /**
@@ -29,7 +33,7 @@ class FundManagerController extends Controller
      */
     public function show(FundManager $fundManager)
     {
-        return FundManager::find($fundManager);
+        return FundManager::with('funds')->find($fundManager->id);
     }
 
     /**
@@ -37,7 +41,10 @@ class FundManagerController extends Controller
      */
     public function update(UpdateFundManagerRequest $request, FundManager $fundManager)
     {
-        return $fundManager->update($request->validated());
+        $data = $request->validated();
+        $fundManager->name = $data['name'] ?? $fundManager->name;
+        $fundManager->save();
+        return $fundManager->load('funds');
     }
 
     /**

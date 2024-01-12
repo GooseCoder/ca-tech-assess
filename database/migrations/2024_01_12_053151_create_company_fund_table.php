@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fund_company', function (Blueprint $table) {
+        Schema::create('company_fund', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fund_id');
             $table->unsignedBigInteger('company_id');
             $table->timestamps();
 
-            $table->foreign('fund_id')->references('id')->on('funds');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('fund_id')->references('id')->on('funds')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fund_company');
+        Schema::dropIfExists('company_fund');
     }
 };
