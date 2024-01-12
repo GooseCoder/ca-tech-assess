@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\FundManager;
 
 class FundManagerSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class FundManagerSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        FundManager::factory()
+            ->count(10)
+            ->create();
     }
 }

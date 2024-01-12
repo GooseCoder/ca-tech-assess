@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('funds', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('fund_manager_id');
+            $table->integer('start_year');
             $table->json('aliases')->nullable();
+            $table->foreign('fund_manager_id')->references('id')->on('fund_managers');
             $table->timestamps();
         });
     }

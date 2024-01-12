@@ -17,7 +17,10 @@ class FundFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'start_year' => fake()->year(),
+            'fund_manager_id' => FundManagerFactory::new(),
+            'aliases' => json_encode(explode(' ', fake()->words(5, true)))
         ];
     }
 }

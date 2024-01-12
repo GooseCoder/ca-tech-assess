@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('/v1')->group(function () {
+    Route::apiResource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::apiResource('fund-managers', \App\Http\Controllers\FundManagerController::class);
+    Route::apiResource('funds', \App\Http\Controllers\FundController::class);
+});

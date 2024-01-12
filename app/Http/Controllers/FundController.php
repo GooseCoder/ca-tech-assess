@@ -13,7 +13,7 @@ class FundController extends Controller
      */
     public function index()
     {
-        //
+        return Fund::all();
     }
 
     /**
@@ -21,7 +21,7 @@ class FundController extends Controller
      */
     public function store(StoreFundRequest $request)
     {
-        //
+        return Fund::create($request->validated());
     }
 
     /**
@@ -29,7 +29,7 @@ class FundController extends Controller
      */
     public function show(Fund $fund)
     {
-        //
+        return Fund::find($fund);
     }
 
     /**
@@ -37,7 +37,7 @@ class FundController extends Controller
      */
     public function update(UpdateFundRequest $request, Fund $fund)
     {
-        //
+        return $fund->update($request->validated());
     }
 
     /**
@@ -45,6 +45,6 @@ class FundController extends Controller
      */
     public function destroy(Fund $fund)
     {
-        //
+        return $fund->delete();
     }
 }

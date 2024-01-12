@@ -13,7 +13,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        return Company::all();
     }
 
     /**
@@ -21,7 +21,7 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        //
+        return Company::create($request->validated());
     }
 
     /**
@@ -29,7 +29,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        return Company::find($company);
     }
 
     /**
@@ -37,7 +37,7 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        //
+        return $company->update($request->validated());
     }
 
     /**
@@ -45,6 +45,6 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        return $company->delete();
     }
 }
