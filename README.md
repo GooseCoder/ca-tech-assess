@@ -44,10 +44,10 @@ If the application growns in complexity an architecture change could be implemen
 
 ## Prerequisites
 
-Before you begin, ensure you have met the following requirements:
+Before we begin, ensure you have met the following requirements:
 
-- You have installed the latest version of [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/install/).
-- You have a basic understanding of Laravel and Docker.
+- Have installed the latest version of [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/install/).
+- Have a basic understanding of Laravel and Docker.
 
 ## Installation
 
@@ -55,11 +55,11 @@ Follow these steps to get your development environment set up:
 
 1. Clone the repository
 ```bash
-git clone https://github.com/your-repo-url
+git clone https://github.com/GooseCoder/ca-tech-assess
 ```
 2. Navigate to the project directory
 ```bash
-cd your-project-directory
+cd ca-tech-assess
 ```
 3. Start the Laravel Sail development environment
 ```bash
